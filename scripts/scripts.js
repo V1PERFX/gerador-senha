@@ -4,7 +4,7 @@ const numberCheckEl = document.querySelector('#number-check')
 const symbolCheckEl = document.querySelector('#symbol-check')
 const securityIndicatorBarEl = document.querySelector('#security-indicator-bar') 
 
-let passwordLength = 16
+let passwordLength = 12
 
 function generatePassword() {
     let chars = "abcçdefghijklmnopqrstuvwxyz"

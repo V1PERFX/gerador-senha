@@ -7,29 +7,41 @@ const securityIndicatorBarEl = document.querySelector('#security-indicator-bar')
 let passwordLength = 12
 
 function generatePassword() {
-  let chars = "abcçdefghijklmnopqrstuvwxyz"
+  let chars = "abcçdefghijklmnopqrstuvwxyzàáâãäåèéêëìíîïòóôõöùúûüñ"
 
-  const upperCaseChars = "ABCÇDEFGHIJKLMNOPQRSTUVWXYZ"
-  const numberChars = "1234565789"
-  const symbolChars = "!#$%&()*+,-./:;<=>?@[]^_{|}"
+  const upperCaseChars = "ABCÇDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÑ"
+  const numberChars = "0123456789"
+  const symbolChars = "!#$%&()*+,-./:;<=>?@[]^_{|}~`'"
 
+  let password = ''
+
+  // Garante pelo menos um de cada categoria selecionada
   if (upperCaseCheckEl.checked) {
+    const randomUpperCase = upperCaseChars[Math.floor(Math.random() * upperCaseChars.length)]
+    password += randomUpperCase
     chars += upperCaseChars
   }
+
   if (numberCheckEl.checked) {
+    const randomNumber = numberChars[Math.floor(Math.random() * numberChars.length)]
+    password += randomNumber
     chars += numberChars
   }
 
   if (symbolCheckEl.checked) {
+    const randomSymbol = symbolChars[Math.floor(Math.random() * symbolChars.length)]
+    password += randomSymbol
     chars += symbolChars
   }
 
-  let password = ''
-
-  for (let i = 0; i < passwordLength; i++) {
+  // Preenche o restante da senha com caracteres aleatórios
+  for (let i = password.length; i < passwordLength; i++) {
     const randomNumber = Math.floor(Math.random() * chars.length)
-    password += chars.substring(randomNumber, randomNumber + 1)
+    password += chars[randomNumber]
   }
+
+  // Embaralha os caracteres da senha para não deixar os primeiros fixos
+  password = password.split('').sort(() => Math.random() - 0.5).join('')
 
   inputEl.value = password
   calculateQuality()
@@ -113,7 +125,7 @@ function updateSliderBackground() {
   slider.style.background = `linear-gradient(to right, #00c6bc ${percentage}%, #676777 ${percentage}%)`;
 }
 
-// Chame a função ao carregar a página e ao mover o slider
+// Chama a função ao carregar a página e ao mover o slider
 slider.addEventListener('input', updateSliderBackground);
 updateSliderBackground(); // Para definir a cor inicial
 

@@ -95,6 +95,28 @@ passwordLengthEl.addEventListener("input", function () {
   generatePassword()
 })
 
+const slider = document.getElementById('password-length');
+const passwordLengthText = document.getElementById('password-length-text');
+
+function updateSliderBackground() {
+  const value = slider.value;
+  const min = slider.min;
+  const max = slider.max;
+  
+  // Atualiza o valor do texto
+  passwordLengthText.textContent = value;
+
+  // Calcula a porcentagem do valor do slider
+  const percentage = ((value - min) / (max - min)) * 100;
+
+  // Define a cor de fundo com base na porcentagem
+  slider.style.background = `linear-gradient(to right, #00c6bc ${percentage}%, #676777 ${percentage}%)`;
+}
+
+// Chame a função ao carregar a página e ao mover o slider
+slider.addEventListener('input', updateSliderBackground);
+updateSliderBackground(); // Para definir a cor inicial
+
 upperCaseCheckEl.addEventListener('click', generatePassword)
 numberCheckEl.addEventListener('click', generatePassword)
 symbolCheckEl.addEventListener('click', generatePassword)

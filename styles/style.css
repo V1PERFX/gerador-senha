@@ -235,6 +235,9 @@ main {
 
 .submit{
   text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .submit button{
